@@ -14,5 +14,6 @@ namespace MarsRoverApp.Models
 
         void SetRover(string strCurrentPosition, int GridMaxXPosition, int GridMaxYPosition);
         void MoveRover(string strCommands);
+        string RoverPosition();
     }
 }

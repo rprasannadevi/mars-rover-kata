@@ -7,6 +7,7 @@ namespace MarsRoverApp.Tests;
 public class MoveRoverTests
 {
     private Rover _RoverA;
+    private Rover _RoverB;
     private Plateau _Plateau;
     //private DoCommand _DoCommand;
 
@@ -17,7 +18,8 @@ public class MoveRoverTests
         _Plateau.SetGridStartPosition(0, 0); ;
         _Plateau.SetGridMaxSixe(5, 5);
 
-        _RoverA = new RoverA();
+        _RoverA = new Rover();
+        _RoverB = new Rover();
     }
 
     [Test]
@@ -71,4 +73,25 @@ public class MoveRoverTests
         _RoverA.CurrentYCoordinate.Should().Be(0);
         _RoverA.CurrentDirection.Should().Be('N');
     }
+
+    [Test]
+    public void Move_RoverA_From_12N_13N()
+    {
+        _RoverA.SetRover("12N", _Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
+        _RoverA.MoveRover("LMLMLMLMM");
+        _RoverA.CurrentXCoordinate.Should().Be(1);
+        _RoverA.CurrentYCoordinate.Should().Be(3);
+        _RoverA.CurrentDirection.Should().Be('N');
+    }
+
+    [Test]
+    public void Move_RoverB_From_33E_51E()
+    {
+        _RoverB.SetRover("33E", _Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
+        _RoverB.MoveRover("MMRMMRMRRM");
+        _RoverB.CurrentXCoordinate.Should().Be(5);
+        _RoverB.CurrentYCoordinate.Should().Be(1);
+        _RoverB.CurrentDirection.Should().Be('E');
+    }
+
 }
