@@ -47,6 +47,7 @@ namespace MarsRoverApp.Models
 
             CurrentPoint.X = CurrentXCoordinate;
             CurrentPoint.Y = CurrentYCoordinate;
+            char CurrentFacingDirection = CurrentDirection;
 
             var strOutput = "";
 
@@ -54,15 +55,22 @@ namespace MarsRoverApp.Models
             {
                 if (Enum.IsDefined(typeof(Commands), char.ToString(sCommand)))
                 {
-                    strOutput = DoCommand.MoveRoverByAction(sCommand, CurrentPoint, CurrentDirection);
+                    strOutput = DoCommand.MoveRoverByAction(sCommand, CurrentPoint, CurrentFacingDirection);
                     CurrentPoint.X = Int32.Parse(strOutput.Substring(0, 1));
                     CurrentPoint.Y = Int32.Parse(strOutput.Substring(1, 1));
-                    CurrentDirection = strOutput[2];
+                    CurrentFacingDirection = strOutput[2];
+                }
+                else
+                {
+                    CurrentPoint.X = CurrentXCoordinate;
+                    CurrentPoint.Y = CurrentYCoordinate;
+                    CurrentFacingDirection = CurrentDirection;
+                    break;
                 }
             }
             CurrentXCoordinate = CurrentPoint.X;
             CurrentYCoordinate = CurrentPoint.Y;
-            CurrentDirection = strOutput[2];
+            CurrentDirection = CurrentFacingDirection;
         }
 
         public string RoverPosition()

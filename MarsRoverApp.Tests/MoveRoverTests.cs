@@ -94,4 +94,24 @@ public class MoveRoverTests
         _RoverB.CurrentDirection.Should().Be('E');
     }
 
+    [Test]
+    public void Move_RoverB_33E_With_InvalidCommands()
+    {
+        _RoverB.SetRover("33E", _Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
+        _RoverB.MoveRover("ABCMRMMRMRRM");
+        _RoverB.CurrentXCoordinate.Should().Be(3);
+        _RoverB.CurrentYCoordinate.Should().Be(3);
+        _RoverB.CurrentDirection.Should().Be('E');
+    }
+
+    [Test]
+    public void Move_RoverB_33E_With_InvalidCommands_In_The_Middle()
+    {
+        _RoverB.SetRover("33E", _Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
+        _RoverB.MoveRover("MMRMMRPQRMRRM");
+        _RoverB.CurrentXCoordinate.Should().Be(3);
+        _RoverB.CurrentYCoordinate.Should().Be(3);
+        _RoverB.CurrentDirection.Should().Be('E');
+    }
+
 }
