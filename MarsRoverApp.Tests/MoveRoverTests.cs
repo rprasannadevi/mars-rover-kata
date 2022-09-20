@@ -75,6 +75,15 @@ public class MoveRoverTests
     }
 
     [Test]
+    public void Get_RoverA_CurrentPosition_With_InValid_Number_Of_Inputs()
+    {
+        _RoverA.SetRover("27EEA", _Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
+        _RoverA.CurrentXCoordinate.Should().Be(0);
+        _RoverA.CurrentYCoordinate.Should().Be(0);
+        _RoverA.CurrentDirection.Should().Be('N');
+    }
+
+    [Test]
     public void Move_RoverA_From_12N_13N()
     {
         _RoverA.SetRover("12N", _Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
@@ -95,7 +104,7 @@ public class MoveRoverTests
     }
 
     [Test]
-    public void Move_RoverB_33E_With_InvalidCommands()
+    public void Move_RoverB_33E_With_Invalid_Commands()
     {
         _RoverB.SetRover("33E", _Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
         _RoverB.MoveRover("ABCMRMMRMRRM");
@@ -111,6 +120,26 @@ public class MoveRoverTests
         _RoverB.MoveRover("MMRMMRPQRMRRM");
         _RoverB.CurrentXCoordinate.Should().Be(3);
         _RoverB.CurrentYCoordinate.Should().Be(3);
+        _RoverB.CurrentDirection.Should().Be('E');
+    }
+
+    [Test]
+    public void Move_RoverA_From_13N_15E()
+    {
+        _RoverA.SetRover("13N", _Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
+        _RoverA.MoveRover("LRLRMLRMR");
+        _RoverA.CurrentXCoordinate.Should().Be(1);
+        _RoverA.CurrentYCoordinate.Should().Be(5);
+        _RoverA.CurrentDirection.Should().Be('E');
+    }
+
+    [Test]
+    public void Move_RoverB_From_51E_44E()
+    {
+        _RoverB.SetRover("51E", _Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
+        _RoverB.MoveRover("LLMRMMLMRMRM");
+        _RoverB.CurrentXCoordinate.Should().Be(4);
+        _RoverB.CurrentYCoordinate.Should().Be(4);
         _RoverB.CurrentDirection.Should().Be('E');
     }
 
