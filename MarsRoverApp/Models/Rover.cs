@@ -8,40 +8,45 @@ using System.Threading.Tasks;
 
 namespace MarsRoverApp.Models
 {
-    public class Rover : IRover
+    public class Rover : Plateau, IRover
     {
-        public int CurrentXCoordinate { get; protected set; }
+        public int CurrentXCoordinate { get; private set; }
         
-        public int CurrentYCoordinate { get; protected set; }
+        public int CurrentYCoordinate { get; private set; }
  
-        public char CurrentDirection { get; protected set; }
+        public char CurrentDirection { get; private set; }
 
-        public List<Point> AssignedPoints = new List<Point>();
-        
-        public List<Point> GetAssignedPoints()
-        {
-            var AssignedPointsList = new List<Point>();
-            return AssignedPointsList;
-        }
+        private DoCommand _DoCommand = new();
 
-        public DoCommand DoCommand = new();
-        public Rover() 
+        public Rover() : base()
         {
             CurrentXCoordinate = 0;
             CurrentYCoordinate = 0;
             CurrentDirection = 'N';
+            _GridStartXPosition = 0;
+            _GridStartYPosition = 0;
         }
 
-        public void SetRover(string strCurrentPosition, int GridMaxXPosition, int GridMaxYPosition)
+        public void SetRover(string strCurrentPosition)
         {
-            if (DoCommand.CheckPosition(strCurrentPosition, GridMaxXPosition, GridMaxYPosition))
+            _DoCommand.SetGridSize(_GridStartXPosition, _GridStartYPosition, GridMaxXPosition, GridMaxYPosition);
+            if (_DoCommand.CheckPosition(strCurrentPosition))
             {
                 CurrentXCoordinate = Int32.Parse(strCurrentPosition.Substring(0, 1));
                 CurrentYCoordinate = Int32.Parse(strCurrentPosition.Substring(1, 1));
                 CurrentDirection = strCurrentPosition[2];
             }
         }
+
         public void MoveRover(string strCommands)
+        {
+            string strRoversNewPosition = _DoCommand.MoveRovers(strCommands, this);
+            CurrentXCoordinate = Int32.Parse(strRoversNewPosition.Substring(0, 1));
+            CurrentYCoordinate = Int32.Parse(strRoversNewPosition.Substring(1, 1));
+            CurrentDirection = strRoversNewPosition[2];
+        }
+
+        /*public void MoveRover(string strCommands)
         {
             Point CurrentPoint = new Point();
 
@@ -71,7 +76,7 @@ namespace MarsRoverApp.Models
             CurrentXCoordinate = CurrentPoint.X;
             CurrentYCoordinate = CurrentPoint.Y;
             CurrentDirection = CurrentFacingDirection;
-        }
+        }*/
 
         public string RoverPosition()
         {
