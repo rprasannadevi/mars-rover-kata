@@ -143,4 +143,43 @@ public class MoveRoverTests
         _RoverB.CurrentDirection.Should().Be('E');
     }
 
+    [Test]
+    public void Move_RoverA_From_13N_Above_Max_Grid_Y_Position()
+    {
+        _RoverA.SetRover("13N");
+        _RoverA.MoveRover("LRLRMLRMRLM");
+        _RoverA.CurrentXCoordinate.Should().Be(1);
+        _RoverA.CurrentYCoordinate.Should().Be(5);
+        _RoverA.CurrentDirection.Should().Be('N');
+    }
+
+    [Test]
+    public void Move_RoverB_From_51E_Above_Max_Grid_X_Position()
+    {
+        _RoverB.SetRover("51E");
+        _RoverB.MoveRover("LLMRMMLMRMRMMMM");
+        _RoverB.CurrentXCoordinate.Should().Be(5);
+        _RoverB.CurrentYCoordinate.Should().Be(4);
+        _RoverB.CurrentDirection.Should().Be('E');
+    }
+
+    [Test]
+    public void Move_RoverA_From_13N_Less_Than_start_Y_Position()
+    {
+        _RoverA.SetRover("12N");
+        _RoverA.MoveRover("LLMMM");
+        _RoverA.CurrentXCoordinate.Should().Be(1);
+        _RoverA.CurrentYCoordinate.Should().Be(0);
+        _RoverA.CurrentDirection.Should().Be('S');
+    }
+
+    [Test]
+    public void Move_RoverB_From_51E_Less_Than_start_X_Position()
+    {
+        _RoverB.SetRover("51E");
+        _RoverB.MoveRover("LLMMMMMM");
+        _RoverB.CurrentXCoordinate.Should().Be(0);
+        _RoverB.CurrentYCoordinate.Should().Be(1);
+        _RoverB.CurrentDirection.Should().Be('W');
+    }
 }

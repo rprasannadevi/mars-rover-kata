@@ -126,21 +126,29 @@ namespace MarsRoverApp.Models
                             case Directions.N:
                                 {
                                     CurrentPoint.Y += 1;
+                                    if(CurrentPoint.Y > _GridMaxYPosition)
+                                        CurrentPoint.Y = _GridMaxYPosition;
                                     break;
                                 }
                             case Directions.E:
                                 {
                                     CurrentPoint.X += 1;
+                                    if (CurrentPoint.X > _GridMaxXPosition)
+                                        CurrentPoint.X = _GridMaxXPosition;
                                     break;
                                 }
                             case Directions.S:
                                 {
                                     CurrentPoint.Y -= 1;
+                                    if (CurrentPoint.Y < _GridStartYPosition)
+                                        CurrentPoint.Y = _GridStartYPosition;
                                     break;
                                 }
                             case Directions.W:
                                 {
                                     CurrentPoint.X -= 1;
+                                    if(CurrentPoint.X < _GridStartXPosition)
+                                        CurrentPoint.X = _GridStartXPosition;
                                     break;
                                 }
                         }
