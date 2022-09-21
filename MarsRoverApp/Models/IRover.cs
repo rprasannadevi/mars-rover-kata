@@ -12,8 +12,9 @@ namespace MarsRoverApp.Models
         int CurrentYCoordinate { get; }
         char CurrentDirection { get; }
 
-        void SetRover(string strCurrentPosition);
-        void MoveRover(string strCommands);
-        string RoverPosition();
+        string SetRover(string strCurrentPosition);
+        string MoveRover(string strCommands);
+        string TakePicture();
+        string TakeSampleFromSurface();
     }
 }

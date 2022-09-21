@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -27,60 +28,50 @@ namespace MarsRoverApp.Models
             _GridStartYPosition = 0;
         }
 
-        public void SetRover(string strCurrentPosition)
+        public string SetRover(string strCurrentPosition)
         {
             _DoCommand.SetGridSize(_GridStartXPosition, _GridStartYPosition, GridMaxXPosition, GridMaxYPosition);
-            if (_DoCommand.CheckPosition(strCurrentPosition))
-            {
-                CurrentXCoordinate = Int32.Parse(strCurrentPosition.Substring(0, 1));
-                CurrentYCoordinate = Int32.Parse(strCurrentPosition.Substring(1, 1));
-                CurrentDirection = strCurrentPosition[2];
-            }
+            if (String.IsNullOrEmpty(strCurrentPosition))
+                return "";
+
+            if (strCurrentPosition.Length != 3)
+                return "Invalid Start Position for Rover - The Correct Input Format is 'XXX'";
+
+            if (!Enum.IsDefined(typeof(Directions), strCurrentPosition.Substring(2, 1)))
+                return "Invalid Start Position for Rover - The Correct Directions are 'N,E,S,W";
+
+            var xCo = Int32.Parse(strCurrentPosition.Substring(0, 1));
+            var yCo = Int32.Parse(strCurrentPosition.Substring(1, 1));
+
+            if (xCo > GridMaxXPosition || yCo > GridMaxYPosition)
+                return "Invalid Start Position for Rover - The Co-Ordinates are Beyond the Grid Position";
+
+            CurrentXCoordinate = xCo;
+            CurrentYCoordinate = yCo;
+            CurrentDirection = strCurrentPosition[2];
+            return strCurrentPosition;
         }
 
-        public void MoveRover(string strCommands)
+        public string MoveRover(string strCommands)
         {
-            string strRoversNewPosition = _DoCommand.MoveRovers(strCommands, this);
-            CurrentXCoordinate = Int32.Parse(strRoversNewPosition.Substring(0, 1));
-            CurrentYCoordinate = Int32.Parse(strRoversNewPosition.Substring(1, 1));
-            CurrentDirection = strRoversNewPosition[2];
+            string strRoversNewPositionMessage = _DoCommand.MoveRovers(strCommands, this);
+            CurrentXCoordinate = Int32.Parse(strRoversNewPositionMessage.Substring(0, 1));
+            CurrentYCoordinate = Int32.Parse(strRoversNewPositionMessage.Substring(1, 1));
+            CurrentDirection = strRoversNewPositionMessage[2];
+            if (strRoversNewPositionMessage.Length == 3)
+                return "Success";
+            else
+                 return strRoversNewPositionMessage.Substring(3);
         }
 
-        /*public void MoveRover(string strCommands)
+        public string TakePicture()
         {
-            Point CurrentPoint = new Point();
+            return "Success";
+        }
 
-            CurrentPoint.X = CurrentXCoordinate;
-            CurrentPoint.Y = CurrentYCoordinate;
-            char CurrentFacingDirection = CurrentDirection;
-
-            var strOutput = "";
-
-            foreach (var sCommand in strCommands)
-            {
-                if (Enum.IsDefined(typeof(Commands), char.ToString(sCommand)))
-                {
-                    strOutput = DoCommand.MoveRoverByAction(sCommand, CurrentPoint, CurrentFacingDirection);
-                    CurrentPoint.X = Int32.Parse(strOutput.Substring(0, 1));
-                    CurrentPoint.Y = Int32.Parse(strOutput.Substring(1, 1));
-                    CurrentFacingDirection = strOutput[2];
-                }
-                else
-                {
-                    CurrentPoint.X = CurrentXCoordinate;
-                    CurrentPoint.Y = CurrentYCoordinate;
-                    CurrentFacingDirection = CurrentDirection;
-                    break;
-                }
-            }
-            CurrentXCoordinate = CurrentPoint.X;
-            CurrentYCoordinate = CurrentPoint.Y;
-            CurrentDirection = CurrentFacingDirection;
-        }*/
-
-        public string RoverPosition()
+        public string TakeSampleFromSurface()
         {
-            return CurrentXCoordinate.ToString() + CurrentYCoordinate.ToString() + Char.ToString(CurrentDirection); ;
+            return "Success";
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace MarsRoverApp.Models
 {
@@ -25,30 +21,10 @@ namespace MarsRoverApp.Models
             _GridMaxYPosition = MaxY;
         }
 
-        public bool CheckPosition(string strCurrentPosition)
-        {
-            if (String.IsNullOrEmpty(strCurrentPosition))
-                return false;
-            if (strCurrentPosition.Length != 3)
-                return false;
-            int xCo;
-            int yCo;
-            xCo = Int32.Parse(strCurrentPosition.Substring(0, 1));
-            yCo = Int32.Parse(strCurrentPosition.Substring(1, 1));
-
-            if (xCo > _GridMaxXPosition || yCo > _GridMaxYPosition)
-                return false;
-            if (!Enum.IsDefined(typeof(Directions), strCurrentPosition.Substring(2, 1)))
-                return false;
-
-            return true;
-        }
-
         public string MoveRovers(string strCommands, Rover Rover)
         {
-            string sOutput = "";
-
             Point CurrentPoint = new Point();
+            var sOutput = "";
 
             CurrentPoint.X = Rover.CurrentXCoordinate;
             CurrentPoint.Y = Rover.CurrentYCoordinate;
@@ -119,53 +95,99 @@ namespace MarsRoverApp.Models
                                 }
                         }
                     }
-                    else if (Action == 'M')
+                    else
                     {
                         switch (CurrentFacingDirection)
                         {
                             case Directions.N:
                                 {
                                     CurrentPoint.Y += 1;
-                                    if(CurrentPoint.Y > _GridMaxYPosition)
+                                    if (CurrentPoint.Y > _GridMaxYPosition)
+                                    {
                                         CurrentPoint.Y = _GridMaxYPosition;
+                                        sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
+                                    }
                                     break;
                                 }
                             case Directions.E:
                                 {
                                     CurrentPoint.X += 1;
                                     if (CurrentPoint.X > _GridMaxXPosition)
+                                    {
                                         CurrentPoint.X = _GridMaxXPosition;
+                                        sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
+                                    }
                                     break;
                                 }
                             case Directions.S:
                                 {
                                     CurrentPoint.Y -= 1;
                                     if (CurrentPoint.Y < _GridStartYPosition)
+                                    {
                                         CurrentPoint.Y = _GridStartYPosition;
+                                        sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
+                                    }
                                     break;
                                 }
                             case Directions.W:
                                 {
                                     CurrentPoint.X -= 1;
-                                    if(CurrentPoint.X < _GridStartXPosition)
+                                    if (CurrentPoint.X < _GridStartXPosition)
+                                    {
                                         CurrentPoint.X = _GridStartXPosition;
+                                        sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
+                                    }
                                     break;
                                 }
                         }
                     }
-
                 }
                 else
                 {
                     CurrentPoint.X = Rover.CurrentXCoordinate;
                     CurrentPoint.Y = Rover.CurrentYCoordinate;
                     CurrentDirection = Rover.CurrentDirection;
+                    sOutput = "Move Rover is not Successful. The valid Commands are: L,R and M";
                     break;
                 }
             }
-            sOutput = CurrentPoint.X.ToString() + CurrentPoint.Y.ToString() + Char.ToString(CurrentDirection);
-            return sOutput;
+
+            if (sOutput == "")
+                return CurrentPoint.X.ToString() + CurrentPoint.Y.ToString() + Char.ToString(CurrentDirection);
+            else
+            {
+                sOutput = CurrentPoint.X.ToString() + CurrentPoint.Y.ToString() + Char.ToString(CurrentDirection) + sOutput;
+                return sOutput;
+            }
         }
+
+        public bool CheckAssignedPortsAndObstacles(Point Point)
+        {
+            
+            return true;
+        }
+
+
+        /*public string CheckPosition(string strCurrentPosition)
+        {
+            if (String.IsNullOrEmpty(strCurrentPosition))
+                return "";
+
+            if (strCurrentPosition.Length != 3)
+                return "Invalid Start Position for Rover - The Correct Input Format is 'XXX'";
+
+            if (!Enum.IsDefined(typeof(Directions), strCurrentPosition.Substring(2, 1)))
+                return "Invalid Start Position for Rover - The Correct Directions are 'N,E,S,W";
+
+            int xCo;
+            int yCo;
+            xCo = Int32.Parse(strCurrentPosition.Substring(0, 1));
+            yCo = Int32.Parse(strCurrentPosition.Substring(1, 1));
+            if (xCo > _GridMaxXPosition || yCo > _GridMaxYPosition)
+                return "Invalid Start Position for Rover - The Co-Ordinates are Beyond the Grid Position";
+
+            return strCurrentPosition;
+        }*/
 
         /*public string MoveRoverByAction(char Action, Point CurrentPoint, char CurrentDirection)
         {
