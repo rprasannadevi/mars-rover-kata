@@ -16,9 +16,9 @@ I have included all the following testcases to test MoveRover Method.
 2.	If its INVALID input w.r.to wrong letters in Commands, it will not move the ROVER and return the message as “Move Rover is not Successful. The valid Commands are: L, R and M"
 3.	If its VALID input and the List Of the Commands move the Rover beyond the Max Grid position and start Grid position, it will move the Rover till the boundary and return the message as “Cannot Move Rover Further As it is Grid's Edge Position
 I have created two Objects Rover A and B. Added few VALID Inputs to move Rovers from Position A to Position B. All is working fine.
-I have added TakePicture and TakeSampleFromSurface methods in Rover Classes and tested with default message as “Success”.
-Obstacle Checking – is yet to add.
+I have added TakePicture and TakeSampleFromSurface methods in Rover Classes and tested with return message as “Success”. Added new Enum for RoverArmActions to take a sample from Surface. Its just a basic method.
 
+I have created ObstacleInfo method in Plteau Class to have the List of Points where the Obstacles are. I use this List of Obstacles Points to check for the Obstacles Whenever the MoveRover method called. If any obstacle is present, Rover can not be moved and set it to the CurrentPoint.
 
 
 
