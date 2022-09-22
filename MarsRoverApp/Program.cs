@@ -4,8 +4,6 @@ using System.Drawing;
 using MarsRoverApp;
 using MarsRoverApp.Models;
 
-Console.WriteLine("Hello, World!");
-
 Plateau Plateau = new Plateau();
 
 Rover RoverA = new Rover();
