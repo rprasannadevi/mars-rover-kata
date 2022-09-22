@@ -12,5 +12,6 @@ namespace MarsRoverApp
         int GridMaxXPosition { get; }
 
         void SetGridMaxSixe(int MaxX, int MaxY);
+        List<Point> ObstaclesInfo();
     }
 }

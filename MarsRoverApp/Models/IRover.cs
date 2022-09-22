@@ -11,6 +11,7 @@ namespace MarsRoverApp.Models
         int CurrentXCoordinate { get; }
         int CurrentYCoordinate { get; }
         char CurrentDirection { get; }
+        bool isCameraOn { get; }
 
         string SetRover(string strCurrentPosition);
         string MoveRover(string strCommands);

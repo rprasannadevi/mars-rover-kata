@@ -26,5 +26,18 @@ namespace MarsRoverApp.Models
             GridMaxXPosition = MaxX;
             GridMaxYPosition = MaxY;
         }
+
+        public List<Point> ObstaclesInfo()
+        {
+            var ObstaclePoints = new List<Point>();
+            Point ObstaclePoint = new Point();
+            ObstaclePoint.X = 4;
+            ObstaclePoint.Y = 4;
+            ObstaclePoints.Add(ObstaclePoint);
+            ObstaclePoint.X = 3;
+            ObstaclePoint.Y = 5;
+            ObstaclePoints.Add(ObstaclePoint);
+            return ObstaclePoints;
+        }
     }
 }

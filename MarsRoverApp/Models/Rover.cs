@@ -17,7 +17,11 @@ namespace MarsRoverApp.Models
  
         public char CurrentDirection { get; private set; }
 
+        public bool isCameraOn { get; private set; }
+
+        public RoverArmActions RoverArmActions;
         private DoCommand _DoCommand = new();
+
 
         public Rover() : base()
         {
@@ -26,6 +30,7 @@ namespace MarsRoverApp.Models
             CurrentDirection = 'N';
             _GridStartXPosition = 0;
             _GridStartYPosition = 0;
+            isCameraOn = false;
         }
 
         public string SetRover(string strCurrentPosition)
@@ -66,11 +71,20 @@ namespace MarsRoverApp.Models
 
         public string TakePicture()
         {
+            isCameraOn = true;
             return "Success";
         }
 
         public string TakeSampleFromSurface()
         {
+            var ArmActions = new List<string>();
+            ArmActions.Add(RoverArmActions.Up.ToString());
+            ArmActions.Add(RoverArmActions.MoveForward.ToString());
+            ArmActions.Add(RoverArmActions.BendForward.ToString());
+            ArmActions.Add(RoverArmActions.Take.ToString());
+            ArmActions.Add(RoverArmActions.Keep.ToString());
+            ArmActions.Add(RoverArmActions.Put.ToString());
+            ArmActions.Add(RoverArmActions.Down.ToString());
             return "Success";
         }
     }

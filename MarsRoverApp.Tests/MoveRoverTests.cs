@@ -194,4 +194,18 @@ public class MoveRoverTests
     {
         _RoverB.TakeSampleFromSurface().Should().Be("Success");
     }
+
+    [Test]
+    public void Get_Obstacles_Information_For_Plateau()
+    {
+        var ObstaclePoints = new List<Point>();
+        ObstaclePoints = _Plateau.ObstaclesInfo();
+        var i = 0;
+        foreach (var oPoint in ObstaclePoints)
+        {
+            ObstaclePoints[i].X.Should().Be(oPoint.X);
+            ObstaclePoints[i].Y.Should().Be(oPoint.Y);
+            i += 1;
+        }
+    }
 }
