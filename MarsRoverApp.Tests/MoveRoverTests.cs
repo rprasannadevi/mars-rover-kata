@@ -137,8 +137,8 @@ public class MoveRoverTests
     public void Move_RoverB_From_51E_44E()
     {
         _RoverB.SetRover("51E").Should().Be("51E");
-        _RoverB.MoveRover("LLMRMMLMRMRM").Should().Be("Success");
-        _RoverB.CurrentXCoordinate.Should().Be(4);
+        _RoverB.MoveRover("LLMRMMLMRMR").Should().Be("Success");
+        _RoverB.CurrentXCoordinate.Should().Be(3);
         _RoverB.CurrentYCoordinate.Should().Be(4);
         _RoverB.CurrentDirection.Should().Be('E');
     }
@@ -154,12 +154,12 @@ public class MoveRoverTests
     }
 
     [Test]
-    public void Move_RoverB_From_51E_Above_Max_Grid_X_Position()
+    public void Move_RoverB_From_51E_Above_Max_Grid_X_Position_With_Obstacle()
     {
         _RoverB.SetRover("51E").Should().Be("51E");
         _RoverB.MoveRover("LLMRMMLMRMRMMMM").Should().Be("Cannot Move Rover Further As it is Grid's Edge Position");
         _RoverB.CurrentXCoordinate.Should().Be(5);
-        _RoverB.CurrentYCoordinate.Should().Be(4);
+        _RoverB.CurrentYCoordinate.Should().Be(1);
         _RoverB.CurrentDirection.Should().Be('E');
     }
 
@@ -207,5 +207,15 @@ public class MoveRoverTests
             ObstaclePoints[i].Y.Should().Be(oPoint.Y);
             i += 1;
         }
+    }
+
+    [Test]
+    public void Move_RoverB_From_51E_44E_With_Obstacle()
+    {
+        _RoverB.SetRover("51E").Should().Be("51E");
+        _RoverB.MoveRover("LLMRMMLMRMRM").Should().Be("Cannot Move Rover. Because Obstacle is present over there.");
+        _RoverB.CurrentXCoordinate.Should().Be(5);
+        _RoverB.CurrentYCoordinate.Should().Be(1);
+        _RoverB.CurrentDirection.Should().Be('E');
     }
 }

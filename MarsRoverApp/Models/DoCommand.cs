@@ -140,6 +140,17 @@ namespace MarsRoverApp.Models
                                     break;
                                 }
                         }
+                        foreach(var oPoint in  Rover.ObstaclesInfo())
+                        {
+                            if (oPoint == CurrentPoint)
+                            {
+                                CurrentPoint.X = Rover.CurrentXCoordinate;
+                                CurrentPoint.Y = Rover.CurrentYCoordinate;
+                                CurrentDirection = Rover.CurrentDirection;
+                                sOutput = "Cannot Move Rover. Because Obstacle is present over there.";
+                            }
+                            break;
+                        }
                     }
                 }
                 else
