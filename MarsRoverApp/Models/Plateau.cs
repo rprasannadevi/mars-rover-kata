@@ -9,16 +9,16 @@ namespace MarsRoverApp.Models
 {
     public class Plateau : IPlateau
     {
-        protected int _GridStartXPosition { get; set; }
-        protected  int _GridStartYPosition { get; set; }
+        public int GridStartXPosition { get; private set; }
+        public  int GridStartYPosition { get; private set; }
 
         public int GridMaxYPosition { get; private set; }
         public int GridMaxXPosition { get; private set; }
 
         public Plateau()
         {
-            _GridStartXPosition = 0;
-            _GridStartYPosition = 0;
+            GridStartXPosition = 0;
+            GridStartYPosition = 0;
         }
          
         public void SetGridMaxSixe(int MaxX, int MaxY)

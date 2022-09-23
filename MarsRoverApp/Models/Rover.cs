@@ -30,8 +30,6 @@ namespace MarsRoverApp.Models
             CurrentXCoordinate = 0;
             CurrentYCoordinate = 0;
             CurrentDirection = 'N';
-            _GridStartXPosition = 0;
-            _GridStartYPosition = 0;
             isCameraOn = false;
         }
 
@@ -65,7 +63,6 @@ namespace MarsRoverApp.Models
             CurrentXCoordinate = xCo;
             CurrentYCoordinate = yCo;
             CurrentDirection = strCurrentPosition[2];
-            _DoCommand.SetGridSize(_GridStartXPosition, _GridStartYPosition, GridMaxXPosition, GridMaxYPosition);
         }
 
         /// <summary>
@@ -76,7 +73,7 @@ namespace MarsRoverApp.Models
         /// <exception cref="ArgumentException"></exception>
         public string MoveRover(string strCommands)
         {
-            string strRoversNewPositionMessage = _DoCommand.MoveRovers(strCommands, this);
+            string strRoversNewPositionMessage = _DoCommand.DoMoveRover(strCommands, this);
             CurrentXCoordinate = Int32.Parse(strRoversNewPositionMessage.Substring(0, 1));
             CurrentYCoordinate = Int32.Parse(strRoversNewPositionMessage.Substring(1, 1));
             CurrentDirection = strRoversNewPositionMessage[2];

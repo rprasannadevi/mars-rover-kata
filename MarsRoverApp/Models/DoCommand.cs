@@ -8,26 +8,6 @@ namespace MarsRoverApp.Models
         public Commands Commands;
         public Directions CurrentFacingDirection;
 
-        private int _GridMaxXPosition { get; set; }
-        private int _GridMaxYPosition { get; set; }
-        private int _GridStartXPosition { get; set; }
-        private int _GridStartYPosition { get; set; }
-
-        /// <summary>
-        /// It sets the Grid in the Plateau Surface with start and Max Co-Ordinates
-        /// </summary>
-        /// <param name="startX"></param>
-        /// <param name="startY"></param>
-        /// <param name="MaxX"></param>
-        /// <param name="MaxY"></param>
-        public void SetGridSize(int startX, int startY, int MaxX, int MaxY)
-        {
-            _GridStartXPosition = startX;
-            _GridStartYPosition = startY;
-            _GridMaxXPosition = MaxX;
-            _GridMaxYPosition = MaxY;
-        }
-
         /// <summary>
         /// It takes Commands to Move and Rover as inputs and move the Rover to the New Position. It checks for any 
         /// Obstacles present and do the actions according to that
@@ -35,10 +15,15 @@ namespace MarsRoverApp.Models
         /// <param name="strCommands"></param>
         /// <param name="Rover"></param>
         /// <returns>The New Position of the Rover after Movement</returns>
-        public string MoveRovers(string strCommands, Rover Rover)
+        public string DoMoveRover(string strCommands, Rover Rover)
         {
             Point CurrentPoint = new Point();
             var sOutput = "";
+
+            var GridMaxXPosition = Rover.GridMaxXPosition;
+            var GridMaxYPosition = Rover.GridMaxYPosition;
+            var GridStartXPosition = Rover.GridStartXPosition;
+            var GridStartYPosition = Rover.GridStartYPosition;
 
             CurrentPoint.X = Rover.CurrentXCoordinate;
             CurrentPoint.Y = Rover.CurrentYCoordinate;
@@ -116,9 +101,9 @@ namespace MarsRoverApp.Models
                             case Directions.N:
                                 {
                                     CurrentPoint.Y += 1;
-                                    if (CurrentPoint.Y > _GridMaxYPosition)
+                                    if (CurrentPoint.Y > GridMaxYPosition)
                                     {
-                                        CurrentPoint.Y = _GridMaxYPosition;
+                                        CurrentPoint.Y = GridMaxYPosition;
                                         sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
                                     }
                                     if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
@@ -131,9 +116,9 @@ namespace MarsRoverApp.Models
                             case Directions.E:
                                 {
                                     CurrentPoint.X += 1;
-                                    if (CurrentPoint.X > _GridMaxXPosition)
+                                    if (CurrentPoint.X > GridMaxXPosition)
                                     {
-                                        CurrentPoint.X = _GridMaxXPosition;
+                                        CurrentPoint.X = GridMaxXPosition;
                                         sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
                                     }
                                     if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
@@ -146,9 +131,9 @@ namespace MarsRoverApp.Models
                             case Directions.S:
                                 {
                                     CurrentPoint.Y -= 1;
-                                    if (CurrentPoint.Y < _GridStartYPosition)
+                                    if (CurrentPoint.Y < GridStartYPosition)
                                     {
-                                        CurrentPoint.Y = _GridStartYPosition;
+                                        CurrentPoint.Y = GridStartYPosition;
                                         sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
                                     }
                                     if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
@@ -161,9 +146,9 @@ namespace MarsRoverApp.Models
                             case Directions.W:
                                 {
                                     CurrentPoint.X -= 1;
-                                    if (CurrentPoint.X < _GridStartXPosition)
+                                    if (CurrentPoint.X < GridStartXPosition)
                                     {
-                                        CurrentPoint.X = _GridStartXPosition;
+                                        CurrentPoint.X = GridStartXPosition;
                                         sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
                                     }
                                     if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
