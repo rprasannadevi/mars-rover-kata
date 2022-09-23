@@ -13,7 +13,7 @@ namespace MarsRoverApp.Models
         char CurrentDirection { get; }
         bool isCameraOn { get; }
 
-        string SetRover(string strCurrentPosition);
+        void SetRover(string strCurrentPosition);
         string MoveRover(string strCommands);
         string TakePicture();
         string TakeSampleFromSurface();

@@ -107,6 +107,11 @@ namespace MarsRoverApp.Models
                                         CurrentPoint.Y = _GridMaxYPosition;
                                         sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
                                     }
+                                    if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
+                                    {
+                                        CurrentPoint.Y -= 1;
+                                        sOutput = "Cannot Move Rover Further. Because Obstacle is present over there.";
+                                    }
                                     break;
                                 }
                             case Directions.E:
@@ -116,6 +121,11 @@ namespace MarsRoverApp.Models
                                     {
                                         CurrentPoint.X = _GridMaxXPosition;
                                         sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
+                                    }
+                                    if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
+                                    {
+                                        CurrentPoint.X -= 1;
+                                        sOutput = "Cannot Move Rover Further. Because Obstacle is present over there.";
                                     }
                                     break;
                                 }
@@ -127,6 +137,11 @@ namespace MarsRoverApp.Models
                                         CurrentPoint.Y = _GridStartYPosition;
                                         sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
                                     }
+                                    if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
+                                    {
+                                        CurrentPoint.Y += 1;
+                                        sOutput = "Cannot Move Rover Further. Because Obstacle is present over there.";
+                                    }
                                     break;
                                 }
                             case Directions.W:
@@ -137,19 +152,13 @@ namespace MarsRoverApp.Models
                                         CurrentPoint.X = _GridStartXPosition;
                                         sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
                                     }
+                                    if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
+                                    {
+                                        CurrentPoint.X += 1;
+                                        sOutput = "Cannot Move Rover Further. Because Obstacle is present over there.";
+                                    }
                                     break;
                                 }
-                        }
-                        foreach(var oPoint in  Rover.ObstaclesInfo())
-                        {
-                            if (oPoint == CurrentPoint)
-                            {
-                                CurrentPoint.X = Rover.CurrentXCoordinate;
-                                CurrentPoint.Y = Rover.CurrentYCoordinate;
-                                CurrentDirection = Rover.CurrentDirection;
-                                sOutput = "Cannot Move Rover. Because Obstacle is present over there.";
-                            }
-                            break;
                         }
                     }
                 }
@@ -172,11 +181,17 @@ namespace MarsRoverApp.Models
             }
         }
 
-        public bool CheckAssignedPortsAndObstacles(Point Point)
+        public bool CheckForObstacles(List<Point> ObstaclePoints,Point CurrentPoint)
         {
-            
-            return true;
+            foreach (var oPoint in ObstaclePoints)
+            {
+                if (oPoint == CurrentPoint)
+                    return true;
+            }
+            return false;
         }
+
+                              
 
     }
 }

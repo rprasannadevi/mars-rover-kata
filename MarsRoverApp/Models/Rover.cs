@@ -33,28 +33,32 @@ namespace MarsRoverApp.Models
             isCameraOn = false;
         }
 
-        public string SetRover(string strCurrentPosition)
+        public void SetRover(string strCurrentPosition)
         {
-            _DoCommand.SetGridSize(_GridStartXPosition, _GridStartYPosition, GridMaxXPosition, GridMaxYPosition);
             if (String.IsNullOrEmpty(strCurrentPosition))
-                return "";
+            {
+                if(strCurrentPosition == null)
+                    throw new ArgumentException("Invalid Start Position for Rover. The Input is NULL");
+                else
+                    throw new ArgumentException("Invalid Start Position for Rover. The Input is Empty");
+            }
 
             if (strCurrentPosition.Length != 3)
-                return "Invalid Start Position for Rover - The Correct Input Format is 'XXX'";
+                throw new ArgumentException("Invalid Start Position for Rover - The Correct Input Format is 'XXX'");
 
             if (!Enum.IsDefined(typeof(Directions), strCurrentPosition.Substring(2, 1)))
-                return "Invalid Start Position for Rover - The Correct Directions are 'N,E,S,W";
+                throw new ArgumentException("Invalid Start Position for Rover - The Correct Directions are 'N,E,S,W");
 
             var xCo = Int32.Parse(strCurrentPosition.Substring(0, 1));
             var yCo = Int32.Parse(strCurrentPosition.Substring(1, 1));
 
             if (xCo > GridMaxXPosition || yCo > GridMaxYPosition)
-                return "Invalid Start Position for Rover - The Co-Ordinates are Beyond the Grid Position";
+                throw new ArgumentException("Invalid Start Position for Rover - The Co-Ordinates are Beyond the Grid Position");
 
             CurrentXCoordinate = xCo;
             CurrentYCoordinate = yCo;
             CurrentDirection = strCurrentPosition[2];
-            return strCurrentPosition;
+            _DoCommand.SetGridSize(_GridStartXPosition, _GridStartYPosition, GridMaxXPosition, GridMaxYPosition);
         }
 
         public string MoveRover(string strCommands)
@@ -64,9 +68,9 @@ namespace MarsRoverApp.Models
             CurrentYCoordinate = Int32.Parse(strRoversNewPositionMessage.Substring(1, 1));
             CurrentDirection = strRoversNewPositionMessage[2];
             if (strRoversNewPositionMessage.Length == 3)
-                return "Success";
+                return strRoversNewPositionMessage.Substring(0,3);
             else
-                 return strRoversNewPositionMessage.Substring(3);
+                throw new ArgumentException(strRoversNewPositionMessage.Substring(3));
         }
 
         public string TakePicture()
