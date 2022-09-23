@@ -7,9 +7,9 @@ namespace MarsRoverApp.Models
 {
     public enum Directions
     {
-        N,
-        E,
-        S,
-        W
+        N, //North
+        E, //East
+        S, //South
+        W //West
     }
 }

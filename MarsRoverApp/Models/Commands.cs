@@ -7,8 +7,8 @@ namespace MarsRoverApp.Models
 {
     public enum Commands
     {
-        L,
-        R,
-        M
+        L, //SpinsLeft
+        R, //SpinsRight
+        M //Move
     }
 }
