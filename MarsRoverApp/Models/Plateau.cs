@@ -27,6 +27,10 @@ namespace MarsRoverApp.Models
             GridMaxYPosition = MaxY;
         }
 
+        /// <summary>
+        /// The List of Obstacle Points will be added
+        /// </summary>
+        /// <returns>List<Point></returns>
         public List<Point> ObstaclesInfo()
         {
             var ObstaclePoints = new List<Point>();

@@ -13,6 +13,13 @@ namespace MarsRoverApp.Models
         private int _GridStartXPosition { get; set; }
         private int _GridStartYPosition { get; set; }
 
+        /// <summary>
+        /// It sets the Grid in the Plateau Surface with start and Max Co-Ordinates
+        /// </summary>
+        /// <param name="startX"></param>
+        /// <param name="startY"></param>
+        /// <param name="MaxX"></param>
+        /// <param name="MaxY"></param>
         public void SetGridSize(int startX, int startY, int MaxX, int MaxY)
         {
             _GridStartXPosition = startX;
@@ -21,6 +28,13 @@ namespace MarsRoverApp.Models
             _GridMaxYPosition = MaxY;
         }
 
+        /// <summary>
+        /// It takes Commands to Move and Rover as inputs and move the Rover to the New Position. It checks for any 
+        /// Obstacles present and do the actions according to that
+        /// </summary>
+        /// <param name="strCommands"></param>
+        /// <param name="Rover"></param>
+        /// <returns>The New Position of the Rover after Movement</returns>
         public string MoveRovers(string strCommands, Rover Rover)
         {
             Point CurrentPoint = new Point();
@@ -181,6 +195,12 @@ namespace MarsRoverApp.Models
             }
         }
 
+        /// <summary>
+        /// It checks for any Obstacle is present in the CurrentPoint to stop moving to this point
+        /// </summary>
+        /// <param name="ObstaclePoints"></param>
+        /// <param name="CurrentPoint"></param>
+        /// <returns>bool</returns>
         public bool CheckForObstacles(List<Point> ObstaclePoints,Point CurrentPoint)
         {
             foreach (var oPoint in ObstaclePoints)
@@ -190,8 +210,6 @@ namespace MarsRoverApp.Models
             }
             return false;
         }
-
-                              
-
+                             
     }
 }

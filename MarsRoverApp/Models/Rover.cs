@@ -22,7 +22,9 @@ namespace MarsRoverApp.Models
         public RoverArmActions RoverArmActions;
         private DoCommand _DoCommand = new();
 
-
+        /// <summary>
+        /// Constructor - sets all default values
+        /// </summary>
         public Rover() : base()
         {
             CurrentXCoordinate = 0;
@@ -33,6 +35,11 @@ namespace MarsRoverApp.Models
             isCameraOn = false;
         }
 
+        /// <summary>
+        /// Place the Rover in the Position Given after checking all the validations
+        /// </summary>
+        /// <param name="strCurrentPosition"></param>
+        /// <exception cref="ArgumentException"></exception>
         public void SetRover(string strCurrentPosition)
         {
             if (String.IsNullOrEmpty(strCurrentPosition))
@@ -61,6 +68,12 @@ namespace MarsRoverApp.Models
             _DoCommand.SetGridSize(_GridStartXPosition, _GridStartYPosition, GridMaxXPosition, GridMaxYPosition);
         }
 
+        /// <summary>
+        /// Move Rover - According to the Commands after checking all the validations.
+        /// </summary>
+        /// <param name="strCommands"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public string MoveRover(string strCommands)
         {
             string strRoversNewPositionMessage = _DoCommand.MoveRovers(strCommands, this);
@@ -73,12 +86,20 @@ namespace MarsRoverApp.Models
                 throw new ArgumentException(strRoversNewPositionMessage.Substring(3));
         }
 
+        /// <summary>
+        /// It just turns on the Camera
+        /// </summary>
+        /// <returns>Success</returns>
         public string TakePicture()
         {
             isCameraOn = true;
             return "Success";
         }
 
+        /// <summary>
+        /// Gives list of actions to be executed to take sample from Surface.
+        /// </summary>
+        /// <returns>Success</returns>
         public string TakeSampleFromSurface()
         {
             var ArmActions = new List<string>();
