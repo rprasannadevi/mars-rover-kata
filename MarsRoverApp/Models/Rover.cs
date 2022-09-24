@@ -18,9 +18,17 @@ namespace MarsRoverApp.Models
         public char CurrentDirection { get; private set; }
 
         public bool isCameraOn { get; private set; }
+        public string Name { get; private set; }
 
         public RoverArmActions RoverArmActions;
         private DoCommand _DoCommand = new();
+
+        public static Hashtable RoverPresentPoints = new Hashtable();
+
+        public void SetName(string sName)
+        {
+            Name = sName;
+        }
 
         /// <summary>
         /// Constructor - sets all default values
@@ -31,6 +39,7 @@ namespace MarsRoverApp.Models
             CurrentYCoordinate = 0;
             CurrentDirection = 'N';
             isCameraOn = false;
+            Name = "";
         }
 
         /// <summary>
@@ -63,6 +72,11 @@ namespace MarsRoverApp.Models
             CurrentXCoordinate = xCo;
             CurrentYCoordinate = yCo;
             CurrentDirection = strCurrentPosition[2];
+
+            if (Rover.RoverPresentPoints.ContainsKey(Name))
+                Rover.RoverPresentPoints[Name] = strCurrentPosition.Substring(0, 2);
+            else
+                Rover.RoverPresentPoints.Add(Name, strCurrentPosition.Substring(0, 2));
         }
 
         /// <summary>

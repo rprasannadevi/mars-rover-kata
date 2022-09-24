@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Drawing;
 using FluentAssertions;
 using MarsRoverApp.Models;
@@ -8,6 +9,7 @@ public class MoveRoverTests
 {
     private Rover _RoverA;
     private Rover _RoverB;
+    private Rover _RoverC;
     private Plateau _Plateau;
     private int _MaxX;
     private int _MaxY;
@@ -22,9 +24,14 @@ public class MoveRoverTests
         _Plateau.SetGridMaxSixe(_MaxX, _MaxY);
 
         _RoverA = new Rover();
+        _RoverA.SetName("A");
         _RoverA.SetGridMaxSixe(_Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
         _RoverB = new Rover();
+        _RoverB.SetName("B");
         _RoverB.SetGridMaxSixe(_Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
+        _RoverC = new Rover();
+        _RoverC.SetName("C");
+        _RoverC.SetGridMaxSixe(_Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
     }
 
     [Test]
@@ -46,10 +53,10 @@ public class MoveRoverTests
     [Test]
     public void Get_RoverA_CurrentPosition_With_Valid_Input_55W()
     {
-        _RoverB.SetRover("55W");
-        _RoverB.CurrentXCoordinate.Should().Be(5);
-        _RoverB.CurrentYCoordinate.Should().Be(5);
-        _RoverB.CurrentDirection.Should().Be('W');
+        _RoverB.SetRover("33E");
+        _RoverB.CurrentXCoordinate.Should().Be(3);
+        _RoverB.CurrentYCoordinate.Should().Be(3);
+        _RoverB.CurrentDirection.Should().Be('E');
     }
 
     [Test]
@@ -60,7 +67,7 @@ public class MoveRoverTests
         _RoverA.CurrentXCoordinate.Should().Be(0);
         _RoverA.CurrentYCoordinate.Should().Be(0);
         _RoverA.CurrentDirection.Should().Be('N');
-    }
+    } 
 
     [Test]
     public void Get_RoverA_CurrentPosition_With_InValid_Input_As_Null()
@@ -245,7 +252,7 @@ public class MoveRoverTests
     }
 
     [Test]
-    public void Move_RoverB_From_51E_44E_With_Obstacle()
+    public void Move_RoverB_From_51E_34E_With_Obstacle()
     {
         _RoverB.SetRover("51E");
         var ex = Assert.Throws<ArgumentException>(() => _RoverB.MoveRover("LLMRMMLMRMRM"));
@@ -253,5 +260,23 @@ public class MoveRoverTests
         _RoverB.CurrentXCoordinate.Should().Be(3);
         _RoverB.CurrentYCoordinate.Should().Be(4);
         _RoverB.CurrentDirection.Should().Be('E');
+    }
+
+    [Test]
+    public void Move_RoverC_From_12E_11S_To_Check_Collision()
+    {
+        _RoverC.SetRover("12E");
+        if (Rover.RoverPresentPoints.Count > 0)
+        {
+            foreach (DictionaryEntry oPoint in Rover.RoverPresentPoints)
+            {
+                Console.WriteLine("RoverName: {0}, Co-Ordinates: {1}", oPoint.Key, oPoint.Value);
+            }
+        }
+        var ex = Assert.Throws<ArgumentException>(() => _RoverC.MoveRover("RMM"));
+        Assert.That(ex.Message, Is.EqualTo("Cannot Move Rover Further. Another Rover is standing over there."));
+        _RoverC.CurrentXCoordinate.Should().Be(1);
+        _RoverC.CurrentYCoordinate.Should().Be(1);
+        _RoverC.CurrentDirection.Should().Be('S');
     }
 }
