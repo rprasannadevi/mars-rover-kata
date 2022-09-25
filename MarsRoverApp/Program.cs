@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
 using System.Drawing;
+using System.Collections;
 using MarsRoverApp;
 using MarsRoverApp.Models;
 
@@ -42,5 +43,13 @@ Console.WriteLine("Rover A Moved to: " + sOutput); //Moved to 15N
 RoverC.SetRover("31E");
 sOutput = RoverC.MoveRover("MM");
 Console.WriteLine("Rover C Moved to: " + sOutput); //Moved to 51E
+
+if(Rover.RoverPresentPoints.Count > 0)
+{
+    foreach (DictionaryEntry oPoint in Rover.RoverPresentPoints)
+    {
+        Console.WriteLine("RoverName: {0}, Co-Ordinates: {1}", oPoint.Key, oPoint.Value);
+    }
+}
 
 

@@ -20,7 +20,7 @@ namespace MarsRoverApp.Models
         public string DoMoveRover(string strCommands, Rover Rover)
         {
             Point CurrentPoint = new Point();
-            var sOutput = "";
+            var strErrorMessage = "";
 
             var GridMaxXPosition = Rover.GridMaxXPosition;
             var GridMaxYPosition = Rover.GridMaxYPosition;
@@ -31,7 +31,7 @@ namespace MarsRoverApp.Models
             CurrentPoint.Y = Rover.CurrentYCoordinate;
             char CurrentDirection = Rover.CurrentDirection;
 
-            var StrCurrentPoint = "";
+            var strRoverName = "";
 
             foreach (var Action in strCommands)
             {
@@ -61,18 +61,18 @@ namespace MarsRoverApp.Models
                                     if (CurrentPoint.Y > GridMaxYPosition)
                                     {
                                         CurrentPoint.Y = GridMaxYPosition;
-                                        sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
+                                        strErrorMessage = "Cannot Move Rover Further As it is Grid's Edge Position";
                                     }
-                                    StrCurrentPoint = CurrentPoint.X.ToString() + CurrentPoint.Y.ToString();
-                                    if (CheckCollisionWithOtherRovers(Rover.RoverPresentPoints, StrCurrentPoint, Rover.Name))
+                                    strRoverName = CheckCollisionWithOtherRovers(Rover.RoverPresentPoints, CurrentPoint, Rover.Name);
+                                    if (strRoverName != "")
                                     {
                                         CurrentPoint.Y -= 1;
-                                        sOutput = "Cannot Move Rover Further. Another Rover is standing over there.";
+                                        strErrorMessage = "Cannot Move Rover Further.Rover " + strRoverName + " is standing over there.";
                                     }
                                     if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
                                     {
                                         CurrentPoint.Y -= 1;
-                                        sOutput = "Cannot Move Rover Further. Because Obstacle is present over there.";
+                                        strErrorMessage = "Cannot Move Rover Further. Because Obstacle is present over there.";
                                     }
                                     break;
                                 }
@@ -83,18 +83,18 @@ namespace MarsRoverApp.Models
                                     if (CurrentPoint.X > GridMaxXPosition)
                                     {
                                         CurrentPoint.X = GridMaxXPosition;
-                                        sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
+                                        strErrorMessage = "Cannot Move Rover Further As it is Grid's Edge Position";
                                     }
-                                    StrCurrentPoint = CurrentPoint.X.ToString() + CurrentPoint.Y.ToString();
-                                    if (CheckCollisionWithOtherRovers(Rover.RoverPresentPoints, StrCurrentPoint, Rover.Name))
+                                    strRoverName = CheckCollisionWithOtherRovers(Rover.RoverPresentPoints, CurrentPoint, Rover.Name);
+                                    if (strRoverName != "")
                                     {
                                         CurrentPoint.X -= 1;
-                                        sOutput = "Cannot Move Rover Further. Another Rover is standing over there.";
+                                        strErrorMessage = "Cannot Move Rover Further.Rover " + strRoverName + " is standing over there.";
                                     }
                                     if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
                                     {
                                         CurrentPoint.X -= 1;
-                                        sOutput = "Cannot Move Rover Further. Because Obstacle is present over there.";
+                                        strErrorMessage = "Cannot Move Rover Further. Because Obstacle is present over there.";
                                     }
                                     break;
                                 }
@@ -105,18 +105,18 @@ namespace MarsRoverApp.Models
                                     if (CurrentPoint.Y < GridStartYPosition)
                                     {
                                         CurrentPoint.Y = GridStartYPosition;
-                                        sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
+                                        strErrorMessage = "Cannot Move Rover Further As it is Grid's Edge Position";
                                     }
-                                    StrCurrentPoint = CurrentPoint.X.ToString() + CurrentPoint.Y.ToString();
-                                    if (CheckCollisionWithOtherRovers(Rover.RoverPresentPoints, StrCurrentPoint, Rover.Name))
+                                    strRoverName = CheckCollisionWithOtherRovers(Rover.RoverPresentPoints, CurrentPoint, Rover.Name);
+                                    if (strRoverName != "")
                                     {
                                         CurrentPoint.Y += 1;
-                                        sOutput = "Cannot Move Rover Further. Another Rover is standing over there.";
+                                        strErrorMessage = "Cannot Move Rover Further.Rover " + strRoverName + " is standing over there.";
                                     }
                                     if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
                                     {
                                         CurrentPoint.Y += 1;
-                                        sOutput = "Cannot Move Rover Further. Because Obstacle is present over there.";
+                                        strErrorMessage = "Cannot Move Rover Further. Because Obstacle is present over there.";
                                     }
                                     break;
                                 }
@@ -127,18 +127,18 @@ namespace MarsRoverApp.Models
                                     if (CurrentPoint.X < GridStartXPosition)
                                     {
                                         CurrentPoint.X = GridStartXPosition;
-                                        sOutput = "Cannot Move Rover Further As it is Grid's Edge Position";
+                                        strErrorMessage = "Cannot Move Rover Further As it is Grid's Edge Position";
                                     }
-                                    StrCurrentPoint = CurrentPoint.X.ToString() + CurrentPoint.Y.ToString();
-                                    if (CheckCollisionWithOtherRovers(Rover.RoverPresentPoints, StrCurrentPoint, Rover.Name))
+                                    strRoverName = CheckCollisionWithOtherRovers(Rover.RoverPresentPoints, CurrentPoint, Rover.Name);
+                                    if (strRoverName != "")
                                     {
                                         CurrentPoint.X += 1;
-                                        sOutput = "Cannot Move Rover Further. Another Rover is standing over there.";
+                                        strErrorMessage = "Cannot Move Rover Further.Rover " + strRoverName + " is standing over there.";
                                     }
                                     if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
                                     {
                                         CurrentPoint.X += 1;
-                                        sOutput = "Cannot Move Rover Further. Because Obstacle is present over there.";
+                                        strErrorMessage = "Cannot Move Rover Further. Because Obstacle is present over there.";
                                     }
                                     break;
                                 }
@@ -150,22 +150,23 @@ namespace MarsRoverApp.Models
                     CurrentPoint.X = Rover.CurrentXCoordinate;
                     CurrentPoint.Y = Rover.CurrentYCoordinate;
                     CurrentDirection = Rover.CurrentDirection;
-                    sOutput = "Move Rover is not Successful. The valid Commands are: L,R and M";
+                    strErrorMessage = "Move Rover is not Successful. The valid Commands are: L,R and M";
                     break;
                 }
             }
-            if (Rover.RoverPresentPoints.ContainsKey(Rover.Name))
 
+            //Rover Hashtable - Rover and its co-ordinates will be added/updated here for checking collision.
+            if (Rover.RoverPresentPoints.ContainsKey(Rover.Name))
                 Rover.RoverPresentPoints[Rover.Name] = CurrentPoint.X.ToString() + CurrentPoint.Y.ToString();
             else
                 Rover.RoverPresentPoints.Add(Rover.Name, CurrentPoint.X.ToString() + CurrentPoint.Y.ToString());
 
-            if (sOutput == "")
+            if (strErrorMessage == "")
                 return CurrentPoint.X.ToString() + CurrentPoint.Y.ToString() + Char.ToString(CurrentDirection);
             else
             {
-                sOutput = CurrentPoint.X.ToString() + CurrentPoint.Y.ToString() + Char.ToString(CurrentDirection) + sOutput;
-                return sOutput;
+                strErrorMessage = CurrentPoint.X.ToString() + CurrentPoint.Y.ToString() + Char.ToString(CurrentDirection) + strErrorMessage;
+                return strErrorMessage;
             }
         }
 
@@ -250,17 +251,18 @@ namespace MarsRoverApp.Models
         /// <param name="CurrentPoint"></param>
         /// <param name="RoverName"></param>
         /// <returns></returns>
-        public bool CheckCollisionWithOtherRovers(Hashtable RoverStandingPoints, string CurrentPoint, string RoverName)
+        public string CheckCollisionWithOtherRovers(Hashtable RoverStandingPoints, Point CurrentPoint, string RoverName)
         {
+            string strCurrentPoint = CurrentPoint.X.ToString() + CurrentPoint.Y.ToString();
             foreach (DictionaryEntry oPoint in RoverStandingPoints)
             {
                 if (oPoint.Key.ToString() != RoverName)
                 {
-                    if (oPoint.Value.ToString() == CurrentPoint)
-                        return true;
+                    if (oPoint.Value.ToString() == strCurrentPoint)
+                        return oPoint.Key.ToString();
                 }
             }
-            return false;
+            return "";
         }
 
 }

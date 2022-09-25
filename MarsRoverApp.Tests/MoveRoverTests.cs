@@ -266,17 +266,17 @@ public class MoveRoverTests
     public void Move_RoverC_From_12E_11S_To_Check_Collision()
     {
         _RoverC.SetRover("12E");
-        if (Rover.RoverPresentPoints.Count > 0)
+        var ex = Assert.Throws<ArgumentException>(() => _RoverC.MoveRover("RMM"));
+        Assert.That(ex.Message, Is.EqualTo("Cannot Move Rover Further.Rover A is standing over there."));
+        _RoverC.CurrentXCoordinate.Should().Be(1);
+        _RoverC.CurrentYCoordinate.Should().Be(1);
+        _RoverC.CurrentDirection.Should().Be('S');
+        /*if (Rover.RoverPresentPoints.Count > 0)
         {
             foreach (DictionaryEntry oPoint in Rover.RoverPresentPoints)
             {
                 Console.WriteLine("RoverName: {0}, Co-Ordinates: {1}", oPoint.Key, oPoint.Value);
             }
-        }
-        var ex = Assert.Throws<ArgumentException>(() => _RoverC.MoveRover("RMM"));
-        Assert.That(ex.Message, Is.EqualTo("Cannot Move Rover Further. Another Rover is standing over there."));
-        _RoverC.CurrentXCoordinate.Should().Be(1);
-        _RoverC.CurrentYCoordinate.Should().Be(1);
-        _RoverC.CurrentDirection.Should().Be('S');
+        }*/
     }
 }

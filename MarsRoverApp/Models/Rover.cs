@@ -72,11 +72,6 @@ namespace MarsRoverApp.Models
             CurrentXCoordinate = xCo;
             CurrentYCoordinate = yCo;
             CurrentDirection = strCurrentPosition[2];
-
-            if (Rover.RoverPresentPoints.ContainsKey(Name))
-                Rover.RoverPresentPoints[Name] = strCurrentPosition.Substring(0, 2);
-            else
-                Rover.RoverPresentPoints.Add(Name, strCurrentPosition.Substring(0, 2));
         }
 
         /// <summary>
