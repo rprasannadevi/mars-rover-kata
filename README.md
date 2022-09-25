@@ -21,5 +21,6 @@ I have added TakePicture and TakeSampleFromSurface methods in Rover Classes and 
 I have created ObstacleInfo method in Plteau Class to have the List of Points where the Obstacles are. 
 I use this List of Obstacles Points to check for the Obstacles Whenever the MoveRover method called. The Rover will be moved before the Obtacle Point and throw an exception as "Cannot Move Rover Further As it is Grid's Edge Position".
 
+Have created another method to check collision between the Rovers when we Move. For this, i have created Hashtable with Rover name and Co-ordinates. Whenever we move Rovers we check the point for collison and if any Rover is Present that point, The Current Rover will be moved prior to it and shows error message that "Could not Move Rover Further.Another Rover is Present over there"
 
 
