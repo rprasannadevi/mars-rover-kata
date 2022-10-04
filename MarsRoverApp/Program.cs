@@ -5,7 +5,7 @@ using System.Collections;
 using MarsRoverApp;
 using MarsRoverApp.Models;
 
-Plateau Plateau = new Plateau();
+Plateau Plateau = new Plateau(7,5);
 
 Rover RoverA = new Rover();
 RoverA.SetName("A");
@@ -14,15 +14,15 @@ RoverB.SetName("B");
 Rover RoverC = new Rover();
 RoverC.SetName("C");
 var ObstaclePoints = new List<Point>();
-Plateau.SetGridMaxSixe(7, 5);
+//Plateau.SetGridMaxSixe(7, 5);
 ObstaclePoints = Plateau.ObstaclesInfo();
 foreach(var oPoint in ObstaclePoints)
 {
     Console.WriteLine($"Obstacles Info: {oPoint.X}, {oPoint.Y}");
 }
-RoverA.SetGridMaxSixe(Plateau.GridMaxXPosition, Plateau.GridMaxYPosition);
-RoverB.SetGridMaxSixe(Plateau.GridMaxXPosition, Plateau.GridMaxYPosition);
-RoverC.SetGridMaxSixe(Plateau.GridMaxXPosition, Plateau.GridMaxYPosition);
+//RoverA.SetGridMaxSixe(Plateau.GridMaxXPosition, Plateau.GridMaxYPosition);
+//RoverB.SetGridMaxSixe(Plateau.GridMaxXPosition, Plateau.GridMaxYPosition);
+//RoverC.SetGridMaxSixe(Plateau.GridMaxXPosition, Plateau.GridMaxYPosition);
 
 
 Console.WriteLine($"{Plateau.GridMaxXPosition}, {Plateau.GridMaxYPosition}");

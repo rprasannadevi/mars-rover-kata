@@ -5,41 +5,33 @@ using MarsRoverApp.Models;
 
 namespace MarsRoverApp.Tests;
 
-public class MoveRoverTests
+public class RoverTests : PlateauTests
 {
     private Rover _RoverA;
     private Rover _RoverB;
     private Rover _RoverC;
-    private Plateau _Plateau;
-    private int _MaxX;
-    private int _MaxY;
+
 
     [SetUp]
-    public void Setup()
+    public new void Setup()
     {
-        _Plateau = new Plateau();
-        ///Plateau could be Square or Rectangle. Based on Maximum Co-ordinates of X and Y, the validations will be done.
-        _MaxX = 7;
-        _MaxY = 5;
-        _Plateau.SetGridMaxSixe(_MaxX, _MaxY);
-
         _RoverA = new Rover();
         _RoverA.SetName("A");
-        _RoverA.SetGridMaxSixe(_Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
+        _RoverA.GetPlateauInfo(_Plateau);
+        //_RoverA.SetGridMaxSixe(_Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
+
         _RoverB = new Rover();
         _RoverB.SetName("B");
-        _RoverB.SetGridMaxSixe(_Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
+        _RoverB.GetPlateauInfo(_Plateau);
+        //_RoverB.SetGridMaxSixe(_Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
+
         _RoverC = new Rover();
         _RoverC.SetName("C");
-        _RoverC.SetGridMaxSixe(_Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
+        _RoverC.GetPlateauInfo(_Plateau);
+        //_RoverC.SetGridMaxSixe(_Plateau.GridMaxXPosition, _Plateau.GridMaxYPosition);
     }
 
-    [Test]
-    public void Get_Plateau_Grid_Max_Position()
-    {
-        _Plateau.GridMaxXPosition.Should().Be(_MaxX);
-        _Plateau.GridMaxYPosition.Should().Be(_MaxY);
-    }
+    
 
     [Test]
     public void Get_RoverA_CurrentPosition_With_Valid_Input_12N()

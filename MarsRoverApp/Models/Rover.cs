@@ -9,13 +9,22 @@ using System.Threading.Tasks;
 
 namespace MarsRoverApp.Models
 {
-    public class Rover : Plateau, IRover
+    public class Rover : IRover
     {
         public int CurrentXCoordinate { get; private set; }
         
         public int CurrentYCoordinate { get; private set; }
- 
+
         public char CurrentDirection { get; private set; }
+
+        public int GridMaxXPosition { get; private set; }
+
+        public int GridMaxYPosition { get; private set; }
+
+        public int GridStartXPosition { get; private set; }
+
+        public int GridStartYPosition { get; private set; }
+        public List<Point> ObstaclesInfo;
 
         public bool isCameraOn { get; private set; }
         public string Name { get; private set; }
@@ -30,6 +39,15 @@ namespace MarsRoverApp.Models
             Name = sName;
         }
 
+        public void GetPlateauInfo(Plateau objPlateau)
+        {
+            GridStartXPosition = objPlateau.GridStartXPosition;
+            GridStartYPosition = objPlateau.GridStartYPosition;
+            GridMaxXPosition = objPlateau.GridMaxXPosition;
+            GridMaxYPosition = objPlateau.GridMaxYPosition;
+            ObstaclesInfo = objPlateau.ObstaclesInfo();
+        }
+
         /// <summary>
         /// Constructor - sets all default values
         /// </summary>
@@ -40,6 +58,7 @@ namespace MarsRoverApp.Models
             CurrentDirection = 'N';
             isCameraOn = false;
             Name = "";
+            ObstaclesInfo = new List<Point>();
         }
 
         /// <summary>
@@ -47,7 +66,7 @@ namespace MarsRoverApp.Models
         /// </summary>
         /// <param name="strCurrentPosition"></param>
         /// <exception cref="ArgumentException"></exception>
-        public void SetRover(string strCurrentPosition)
+        public void SetRover(string? strCurrentPosition)
         {
             if (String.IsNullOrEmpty(strCurrentPosition))
             {

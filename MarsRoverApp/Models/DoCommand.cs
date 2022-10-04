@@ -69,7 +69,7 @@ namespace MarsRoverApp.Models
                                         CurrentPoint.Y -= 1;
                                         strErrorMessage = "Cannot Move Rover Further.Rover " + strRoverName + " is standing over there.";
                                     }
-                                    if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
+                                    if (CheckForObstacles(Rover.ObstaclesInfo, CurrentPoint))
                                     {
                                         CurrentPoint.Y -= 1;
                                         strErrorMessage = "Cannot Move Rover Further. Because Obstacle is present over there.";
@@ -91,7 +91,7 @@ namespace MarsRoverApp.Models
                                         CurrentPoint.X -= 1;
                                         strErrorMessage = "Cannot Move Rover Further.Rover " + strRoverName + " is standing over there.";
                                     }
-                                    if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
+                                    if (CheckForObstacles(Rover.ObstaclesInfo, CurrentPoint))
                                     {
                                         CurrentPoint.X -= 1;
                                         strErrorMessage = "Cannot Move Rover Further. Because Obstacle is present over there.";
@@ -113,7 +113,7 @@ namespace MarsRoverApp.Models
                                         CurrentPoint.Y += 1;
                                         strErrorMessage = "Cannot Move Rover Further.Rover " + strRoverName + " is standing over there.";
                                     }
-                                    if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
+                                    if (CheckForObstacles(Rover.ObstaclesInfo, CurrentPoint))
                                     {
                                         CurrentPoint.Y += 1;
                                         strErrorMessage = "Cannot Move Rover Further. Because Obstacle is present over there.";
@@ -135,7 +135,7 @@ namespace MarsRoverApp.Models
                                         CurrentPoint.X += 1;
                                         strErrorMessage = "Cannot Move Rover Further.Rover " + strRoverName + " is standing over there.";
                                     }
-                                    if (CheckForObstacles(Rover.ObstaclesInfo(), CurrentPoint))
+                                    if (CheckForObstacles(Rover.ObstaclesInfo, CurrentPoint))
                                     {
                                         CurrentPoint.X += 1;
                                         strErrorMessage = "Cannot Move Rover Further. Because Obstacle is present over there.";
@@ -251,14 +251,14 @@ namespace MarsRoverApp.Models
         /// <param name="CurrentPoint"></param>
         /// <param name="RoverName"></param>
         /// <returns></returns>
-        public string CheckCollisionWithOtherRovers(Hashtable RoverStandingPoints, Point CurrentPoint, string RoverName)
+        public string? CheckCollisionWithOtherRovers(Hashtable RoverStandingPoints, Point CurrentPoint, string RoverName)
         {
             string strCurrentPoint = CurrentPoint.X.ToString() + CurrentPoint.Y.ToString();
             foreach (DictionaryEntry oPoint in RoverStandingPoints)
             {
                 if (oPoint.Key.ToString() != RoverName)
                 {
-                    if (oPoint.Value.ToString() == strCurrentPoint)
+                    if (oPoint.Value!.ToString() == strCurrentPoint)
                         return oPoint.Key.ToString();
                 }
             }
