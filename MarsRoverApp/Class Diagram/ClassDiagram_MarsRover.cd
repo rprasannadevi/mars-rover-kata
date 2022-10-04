@@ -1,15 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="MarsRoverApp.Models.Rover">
-    <Position X="3" Y="3.75" Width="2" />
-    <InheritanceLine Type="MarsRoverApp.Models.Plateau" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="3.875" Y="3.017" />
-        <Point X="3.875" Y="3.75" />
-      </Path>
-    </InheritanceLine>
+    <Position X="3" Y="3.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAACARIAAAQAAAEAAAAAIAAMAAAAAAA=</HashCode>
+      <HashCode>EAgAACAAAAAgAAACCRIAAAQAAAEAAAAAKAAMQAAAAAA=</HashCode>
       <FileName>Models\Rover.cs</FileName>
     </TypeIdentifier>
     <Lollipop Orientation="Left" Position="0.228" />
@@ -17,7 +11,7 @@
   <Class Name="MarsRoverApp.Models.Plateau">
     <Position X="2.5" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>EAgAAAAAAAAgAAAAAAAAAAAAAAEEAAAACAAAAAAAAAA=</HashCode>
+      <HashCode>EAgAAAAAAAAgAAAAAAAAAAAAAAEAAAAACAAAAAAAAAA=</HashCode>
       <FileName>Models\Plateau.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -25,14 +19,14 @@
   <Class Name="MarsRoverApp.Models.DoCommand">
     <Position X="5.5" Y="2.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAAAAAAAEAAAAAAQAAAAAAAAABgAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAgAAAAAAQAAEAABAgAQAAAAAAAAABgAAAAAAAAA=</HashCode>
       <FileName>Models\DoCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="MarsRoverApp.IPlateau">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAEEAAAACAAAAAAAAAA=</HashCode>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAEAAAAACAAAAAAAAAA=</HashCode>
       <FileName>Models\IPlateau.cs</FileName>
       <NewMemberFileName>IPlateau.cs</NewMemberFileName>
     </TypeIdentifier>
@@ -40,7 +34,7 @@
   <Interface Name="MarsRoverApp.Models.IRover">
     <Position X="0.5" Y="3.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAACARAAAAQAAAEAAAAAAAAMAAAAAAA=</HashCode>
+      <HashCode>EAAAACAAAAAgAAACARAAAAQAAAEAAAAACAAMQAAAAAA=</HashCode>
       <FileName>Models\IRover.cs</FileName>
     </TypeIdentifier>
   </Interface>
