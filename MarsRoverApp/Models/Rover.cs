@@ -11,42 +11,42 @@ namespace MarsRoverApp.Models
 {
     public class Rover : IRover
     {
-        public int CurrentXCoordinate { get; private set; }
+        public int CurrentXCoordinate { get; set; }
         
-        public int CurrentYCoordinate { get; private set; }
+        public int CurrentYCoordinate { get; set; }
 
-        public char CurrentDirection { get; private set; }
+        public char CurrentDirection { get; set; }
 
-        public int GridMaxXPosition { get; private set; }
+        /*public int GridMaxXPosition { get; private set; }
 
         public int GridMaxYPosition { get; private set; }
 
         public int GridStartXPosition { get; private set; }
 
-        public int GridStartYPosition { get; private set; }
-        public List<Point> ObstaclesInfo;
+        public int GridStartYPosition { get; private set; }*/
+        //public List<Point> ObstaclesInfo;
 
-        public bool isCameraOn { get; private set; }
+        public bool isCameraOn { get; set; }
         public string Name { get; private set; }
 
-        public RoverArmActions RoverArmActions;
-        private DoCommand _DoCommand = new();
+        //public RoverArmActions RoverArmActions;
+        //private DoCommand _DoCommand = new();
 
-        public static Hashtable RoverPresentPoints = new Hashtable();
+        //public static Hashtable RoverPresentPoints = new Hashtable();
 
         public void SetName(string sName)
         {
             Name = sName;
         }
 
-        public void GetPlateauInfo(Plateau objPlateau)
+        /*public void GetPlateauInfo(Plateau objPlateau)
         {
             GridStartXPosition = objPlateau.GridStartXPosition;
             GridStartYPosition = objPlateau.GridStartYPosition;
             GridMaxXPosition = objPlateau.GridMaxXPosition;
             GridMaxYPosition = objPlateau.GridMaxYPosition;
             ObstaclesInfo = objPlateau.ObstaclesInfo();
-        }
+        }*/
 
         /// <summary>
         /// Constructor - sets all default values
@@ -58,9 +58,9 @@ namespace MarsRoverApp.Models
             CurrentDirection = 'N';
             isCameraOn = false;
             Name = "";
-            ObstaclesInfo = new List<Point>();
+            //ObstaclesInfo = new List<Point>();
         }
-
+        /*
         /// <summary>
         /// Place the Rover in the Position Given after checking all the validations
         /// </summary>
@@ -136,6 +136,6 @@ namespace MarsRoverApp.Models
             ArmActions.Add(RoverArmActions.Put.ToString());
             ArmActions.Add(RoverArmActions.Down.ToString());
             return "Success";
-        }
+        }*/
     }
 }

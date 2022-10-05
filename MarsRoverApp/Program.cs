@@ -4,8 +4,9 @@ using System.Drawing;
 using System.Collections;
 using MarsRoverApp;
 using MarsRoverApp.Models;
+Console.WriteLine("'Hello");
 
-Plateau Plateau = new Plateau(7,5);
+/*Plateau Plateau = new Plateau(7,5);
 
 Rover RoverA = new Rover();
 RoverA.SetName("A");
@@ -50,6 +51,6 @@ if(Rover.RoverPresentPoints.Count > 0)
     {
         Console.WriteLine("RoverName: {0}, Co-Ordinates: {1}", oPoint.Key, oPoint.Value);
     }
-}
+}*/
 
 

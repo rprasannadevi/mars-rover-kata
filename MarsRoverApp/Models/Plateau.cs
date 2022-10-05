@@ -23,6 +23,8 @@ namespace MarsRoverApp.Models
             GridMaxYPosition = MaxY;
         }
 
+        //public Rover rover { get; set; }    
+        /*
         /// <summary>
         /// The List of Obstacle Points will be added
         /// </summary>
@@ -38,6 +40,6 @@ namespace MarsRoverApp.Models
             ObstaclePoint.Y = 5;
             ObstaclePoints.Add(ObstaclePoint);
             return ObstaclePoints;
-        }
+        }*/
     }
 }
