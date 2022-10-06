@@ -11,14 +11,8 @@ namespace MarsRoverApp.Models
         int CurrentXCoordinate { get; }
         int CurrentYCoordinate { get; }
         char CurrentDirection { get; }
-        bool isCameraOn { get; }
+        bool IsCameraOn { get; }
+        bool EnableArmActions { get; }
         string Name { get; }
-
-        /*void SetRover(string strCurrentPosition);
-        void GetPlateauInfo(Plateau objPlateau);
-        string MoveRover(string strCommands);
-        string TakePicture();
-        string TakeSampleFromSurface();
-        void SetName(string Name);*/
     }
 }

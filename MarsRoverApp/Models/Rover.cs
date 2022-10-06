@@ -17,36 +17,13 @@ namespace MarsRoverApp.Models
 
         public char CurrentDirection { get; set; }
 
-        /*public int GridMaxXPosition { get; private set; }
-
-        public int GridMaxYPosition { get; private set; }
-
-        public int GridStartXPosition { get; private set; }
-
-        public int GridStartYPosition { get; private set; }*/
-        //public List<Point> ObstaclesInfo;
-
-        public bool isCameraOn { get; set; }
+        public bool IsCameraOn { get; set; }
+        public bool EnableArmActions { get; set; }
         public string Name { get; private set; }
-
-        //public RoverArmActions RoverArmActions;
-        //private DoCommand _DoCommand = new();
-
-        //public static Hashtable RoverPresentPoints = new Hashtable();
-
         public void SetName(string sName)
         {
             Name = sName;
         }
-
-        /*public void GetPlateauInfo(Plateau objPlateau)
-        {
-            GridStartXPosition = objPlateau.GridStartXPosition;
-            GridStartYPosition = objPlateau.GridStartYPosition;
-            GridMaxXPosition = objPlateau.GridMaxXPosition;
-            GridMaxYPosition = objPlateau.GridMaxYPosition;
-            ObstaclesInfo = objPlateau.ObstaclesInfo();
-        }*/
 
         /// <summary>
         /// Constructor - sets all default values
@@ -56,86 +33,9 @@ namespace MarsRoverApp.Models
             CurrentXCoordinate = 0;
             CurrentYCoordinate = 0;
             CurrentDirection = 'N';
-            isCameraOn = false;
+            IsCameraOn = false;
+            EnableArmActions = false;
             Name = "";
-            //ObstaclesInfo = new List<Point>();
         }
-        /*
-        /// <summary>
-        /// Place the Rover in the Position Given after checking all the validations
-        /// </summary>
-        /// <param name="strCurrentPosition"></param>
-        /// <exception cref="ArgumentException"></exception>
-        public void SetRover(string? strCurrentPosition)
-        {
-            if (String.IsNullOrEmpty(strCurrentPosition))
-            {
-                if(strCurrentPosition == null)
-                    throw new ArgumentException("Invalid Start Position for Rover. The Input is NULL");
-                else
-                    throw new ArgumentException("Invalid Start Position for Rover. The Input is Empty");
-            }
-
-            if (strCurrentPosition.Length != 3)
-                throw new ArgumentException("Invalid Start Position for Rover - The Correct Input Format is 'XXX'");
-
-            if (!Enum.IsDefined(typeof(Directions), strCurrentPosition.Substring(2, 1)))
-                throw new ArgumentException("Invalid Start Position for Rover - The Correct Directions are 'N,E,S,W");
-
-            var xCo = Int32.Parse(strCurrentPosition.Substring(0, 1));
-            var yCo = Int32.Parse(strCurrentPosition.Substring(1, 1));
-
-            if (xCo > GridMaxXPosition || yCo > GridMaxYPosition)
-                throw new ArgumentException("Invalid Start Position for Rover - The Co-Ordinates are Beyond the Grid Position");
-
-            CurrentXCoordinate = xCo;
-            CurrentYCoordinate = yCo;
-            CurrentDirection = strCurrentPosition[2];
-        }
-
-        /// <summary>
-        /// Move Rover - According to the Commands after checking all the validations.
-        /// </summary>
-        /// <param name="strCommands"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
-        public string MoveRover(string strCommands)
-        {
-            string strRoversNewPositionMessage = _DoCommand.DoMoveRover(strCommands, this);
-            CurrentXCoordinate = Int32.Parse(strRoversNewPositionMessage.Substring(0, 1));
-            CurrentYCoordinate = Int32.Parse(strRoversNewPositionMessage.Substring(1, 1));
-            CurrentDirection = strRoversNewPositionMessage[2];
-            if (strRoversNewPositionMessage.Length == 3)
-                return strRoversNewPositionMessage.Substring(0,3);
-            else
-                throw new ArgumentException(strRoversNewPositionMessage.Substring(3));
-        }
-
-        /// <summary>
-        /// It just turns on the Camera
-        /// </summary>
-        /// <returns>Success</returns>
-        public string TakePicture()
-        {
-            isCameraOn = true;
-            return "Success";
-        }
-
-        /// <summary>
-        /// Gives list of actions to be executed to take sample from Surface.
-        /// </summary>
-        /// <returns>Success</returns>
-        public string TakeSampleFromSurface()
-        {
-            var ArmActions = new List<string>();
-            ArmActions.Add(RoverArmActions.Up.ToString());
-            ArmActions.Add(RoverArmActions.MoveForward.ToString());
-            ArmActions.Add(RoverArmActions.BendForward.ToString());
-            ArmActions.Add(RoverArmActions.Take.ToString());
-            ArmActions.Add(RoverArmActions.Keep.ToString());
-            ArmActions.Add(RoverArmActions.Put.ToString());
-            ArmActions.Add(RoverArmActions.Down.ToString());
-            return "Success";
-        }*/
     }
 }

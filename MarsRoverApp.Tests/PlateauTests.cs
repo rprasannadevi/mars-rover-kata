@@ -10,7 +10,7 @@ namespace MarsRoverApp.Tests
 {
     public class PlateauTests
     {
-        public Plateau _Plateau;
+        private Plateau _Plateau;
         private int _MaxX;
         private int _MaxY;
 

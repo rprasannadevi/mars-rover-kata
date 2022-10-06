@@ -3,7 +3,7 @@
   <Class Name="MarsRoverApp.Models.Rover">
     <Position X="2.5" Y="3" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAACAQAAAAQAAAAAAAAAAAAIQAAAAAA=</HashCode>
+      <HashCode>AAAgACAAAAAAAAACAQAAAAQAAAAAAAgAAAAAQAAAAAA=</HashCode>
       <FileName>Models\Rover.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.372" />
@@ -19,7 +19,7 @@
   <Class Name="MarsRoverApp.Models.MissionControl">
     <Position X="4.75" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAAAAAAAQAAECBBAgAQAAAEAAAAAAgAEBAAAAEA=</HashCode>
+      <HashCode>AAgAAAAAAAAAQAAECBBAgAQAAAEAAAAAAgAEAAAAAEA=</HashCode>
       <FileName>Models\MissionControl.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -34,7 +34,7 @@
   <Interface Name="MarsRoverApp.Models.IRover">
     <Position X="0.5" Y="2.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAACAQAAAAQAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <HashCode>AAAgACAAAAAAAAACAQAAAAQAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>Models\IRover.cs</FileName>
     </TypeIdentifier>
   </Interface>

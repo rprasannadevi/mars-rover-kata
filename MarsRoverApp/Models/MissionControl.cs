@@ -11,14 +11,12 @@ namespace MarsRoverApp.Models
     public class MissionControl
     {
         private readonly IPlateau _plateau;
-        private Rover _rover;
         private Directions CurrentFacingDirection;
-        public static Hashtable RoverPresentPoints = new Hashtable();
+        private static Hashtable RoverPresentPoints = new Hashtable();
 
         public MissionControl(IPlateau plateau)
         {
             _plateau = plateau;
-            _rover = new Rover();
         }
 
 
@@ -53,42 +51,6 @@ namespace MarsRoverApp.Models
             _rover.CurrentYCoordinate = yCo;
             _rover.CurrentDirection = strCurrentPosition[2];
         }
-        /*
-        /// <summary>
-        /// Move Rover - According to the Commands after checking all the validations.
-        /// </summary>
-        /// <param name="strCommands"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException"></exception>
-        public string MoveRover(string strCommands)
-        {
-            string strRoversNewPositionMessage = _DoCommand.DoMoveRover(strCommands, _rover);
-            _rover.CurrentXCoordinate = Int32.Parse(strRoversNewPositionMessage.Substring(0, 1));
-            _rover.CurrentYCoordinate = Int32.Parse(strRoversNewPositionMessage.Substring(1, 1));
-            _rover.CurrentDirection = strRoversNewPositionMessage[2];
-            if (strRoversNewPositionMessage.Length == 3)
-                return strRoversNewPositionMessage.Substring(0, 3);
-            else
-                throw new ArgumentException(strRoversNewPositionMessage.Substring(3));
-        }*/
-
-        /// <summary>
-        /// The List of Obstacle Points will be added
-        /// </summary>
-        /// <returns>List<Point></returns>
-        public List<Point> ObstaclesInfo()
-        {
-            var ObstaclePoints = new List<Point>();
-            Point ObstaclePoint = new Point();
-            ObstaclePoint.X = 4;
-            ObstaclePoint.Y = 4;
-            ObstaclePoints.Add(ObstaclePoint);
-            ObstaclePoint.X = 3;
-            ObstaclePoint.Y = 5;
-            ObstaclePoints.Add(ObstaclePoint);
-            return ObstaclePoints;
-        }
-
 
         /// <summary>
         /// It takes Commands to Move and Rover as inputs and move the Rover to the New Position. It checks for any 
@@ -158,7 +120,6 @@ namespace MarsRoverApp.Models
                                 }
                             case Directions.E:
                                 {
-                                    //Console.WriteLine("Inside E");
                                     CurrentPoint.X += 1;
 
                                     if (CurrentPoint.X > GridMaxXPosition)
@@ -174,7 +135,6 @@ namespace MarsRoverApp.Models
                                     }
                                     if (CheckForObstacles(ObstaclesInfo(), CurrentPoint))
                                     {
-                                        //Console.WriteLine("Inside E. CheckforObstacles");
                                         CurrentPoint.X -= 1;
                                         strErrorMessage = "Cannot Move Rover Further. Because Obstacle is present over there.";
                                     }
@@ -204,7 +164,6 @@ namespace MarsRoverApp.Models
                                 }
                             case Directions.W:
                                 {
-                                    //Console.WriteLine("Inside W");
                                     CurrentPoint.X -= 1;
 
                                     if (CurrentPoint.X < GridStartXPosition)
@@ -251,11 +210,7 @@ namespace MarsRoverApp.Models
             if (strErrorMessage == "")
                 return CurrentPoint.X.ToString() + CurrentPoint.Y.ToString() + Char.ToString(CurrentDirection);
             else
-            {
-                //strErrorMessage = CurrentPoint.X.ToString() + CurrentPoint.Y.ToString() + Char.ToString(CurrentDirection) + strErrorMessage;
-                //return strErrorMessage;
                 throw new ArgumentException(strErrorMessage);
-            }
         }
 
         /// <summary>
@@ -327,6 +282,23 @@ namespace MarsRoverApp.Models
         }
 
         /// <summary>
+        /// The List of Obstacle Points will be added
+        /// </summary>
+        /// <returns>List<Point></returns>
+        public List<Point> ObstaclesInfo()
+        {
+            var ObstaclePoints = new List<Point>();
+            Point ObstaclePoint = new Point();
+            ObstaclePoint.X = 4;
+            ObstaclePoint.Y = 4;
+            ObstaclePoints.Add(ObstaclePoint);
+            ObstaclePoint.X = 3;
+            ObstaclePoint.Y = 5;
+            ObstaclePoints.Add(ObstaclePoint);
+            return ObstaclePoints;
+        }
+
+        /// <summary>
         /// It checks for any Obstacle is present in the CurrentPoint to stop moving to this point
         /// </summary>
         /// <param name="ObstaclePoints"></param>
@@ -367,12 +339,12 @@ namespace MarsRoverApp.Models
         }
 
         /// <summary>
-        /// It just turns on the Camera
+        /// It just turns on the Camera 
         /// </summary>
         /// <returns>Success</returns>
         public string TakePicture(Rover _rover)
         {
-            _rover.isCameraOn = true;
+            _rover.IsCameraOn = true;
             return "Success";
         }
 
@@ -382,6 +354,7 @@ namespace MarsRoverApp.Models
         /// <returns>Success</returns>
         public string TakeSampleFromSurface(Rover _rover)
         {
+            _rover.EnableArmActions = true;
             var ArmActions = new List<string>();
             ArmActions.Add(RoverArmActions.Up.ToString());
             ArmActions.Add(RoverArmActions.MoveForward.ToString());

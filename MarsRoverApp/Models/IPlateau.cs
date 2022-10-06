@@ -12,7 +12,5 @@ namespace MarsRoverApp
         int GridStartYPosition { get; }
         int GridMaxYPosition { get; }
         int GridMaxXPosition { get; }
-
-        //List<Point> ObstaclesInfo();
     }
 }
